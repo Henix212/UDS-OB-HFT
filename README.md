@@ -1,3 +1,3 @@
 # UDS-OB-HFT
 
-Use Alpaca API 
+Use kaggle dataset BTC/ETH/ADA
