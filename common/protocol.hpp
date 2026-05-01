@@ -19,7 +19,7 @@ struct MarketSnapshot {
     uint8_t  symbol;        // 0=ADA, 1=BTC, 2=ETH
     uint8_t  timeframe;     // 0=1s, 1=1min, 2=5min
     uint8_t  _pad;
-    int64_t  system_time_us; // timestamp en microsecondes
+    int64_t  system_time_us; // timestamp 
     double   midpoint;
     double   spread;
     double   buys;

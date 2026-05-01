@@ -70,8 +70,6 @@ void MarketDataFeed::accept_loop() {
         std::cout << "[MarketDataFeed] Nouveau fd=" << client_fd
                   << " → handshake SessionManager\n";
 
-        // MarketDataFeed ne gère plus rien :
-        // le SessionManager prend en charge handshake + cycle de vie
         session_mgr_.on_connect(client_fd);
     }
 }
