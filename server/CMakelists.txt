@@ -7,9 +7,14 @@ set(CMAKE_BUILD_TYPE Release)
 add_compile_options(-O2 -Wall -Wextra)
 
 add_executable(server
-    server/main.cpp
-    server/market_data_feed.cpp
-    server/session_manager.cpp
+    main.cpp
+    market_data_feed.cpp
+    session_manager.cpp
 )
-target_include_directories(server PRIVATE common)
+target_include_directories(server PRIVATE ../common)
 target_link_libraries(server pthread)
+
+add_executable(data_reader_sender
+    data_reader_sender.cpp
+)
+target_include_directories(data_reader_sender PRIVATE ../common)
