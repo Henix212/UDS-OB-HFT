@@ -1,28 +1,29 @@
+"""Download Kaggle LOB CSVs into data/raw_data/ (requires kagglehub + API credentials)."""
+
 import kagglehub
 import os
 import shutil
 
+DATASET_HANDLE = "martinsn/high-frequency-crypto-limit-order-book-data"
+DESTINATION_DIR = "data/raw_data"
+
+
 def fetch_data():
-    dataset_handle = "martinsn/high-frequency-crypto-limit-order-book-data"
-    dossier_destination = "data/raw_data"
+    os.makedirs(DESTINATION_DIR, exist_ok=True)
 
-    os.makedirs(dossier_destination, exist_ok=True)
+    existing_files = [f for f in os.listdir(DESTINATION_DIR) if f.endswith(".csv")]
+    if existing_files:
+        # Skip download if CSVs are already present.
+        return
 
-    fichiers_existants = [f for f in os.listdir(dossier_destination) if f.endswith('.csv')]
+    dataset_path = kagglehub.dataset_download(DATASET_HANDLE)
+    for name in os.listdir(dataset_path):
+        if not name.endswith(".csv"):
+            continue
+        source_path = os.path.join(dataset_path, name)
+        dest_path = os.path.join(DESTINATION_DIR, name)
+        shutil.copy2(source_path, dest_path)
 
-    if len(fichiers_existants) > 0:
-        pass
-    else:
-        chemin_dataset = kagglehub.dataset_download(dataset_handle)
-        
-        fichiers_cache = os.listdir(chemin_dataset)
-        
-        for f in fichiers_cache:
-            if f.endswith('.csv'):
-                chemin_source = os.path.join(chemin_dataset, f)
-                chemin_dest = os.path.join(dossier_destination, f)
-                
-                shutil.copy2(chemin_source, chemin_dest)
 
 if __name__ == "__main__":
     fetch_data()
