@@ -1,3 +1,4 @@
+# UDS-OB-HFT: C++20 server (replay) + client (paper trading).
 cmake_minimum_required(VERSION 3.16)
 
 project(UDS_OB_HFT LANGUAGES CXX)
@@ -10,20 +11,23 @@ find_package(Threads REQUIRED)
 
 add_executable(client
     client/main.cpp
+    client/market_client.cpp
     client/trade_processor.cpp
 )
 
 add_executable(server
     server/main.cpp
     server/market_data_feed.cpp
+    server/session_manager.cpp
 )
 
 target_include_directories(client PRIVATE
-    ${CMAKE_SOURCE_DIR}/client
+    ${CMAKE_SOURCE_DIR}/client/include
     ${CMAKE_SOURCE_DIR}/common
 )
 
 target_include_directories(server PRIVATE
+    ${CMAKE_SOURCE_DIR}/server/include
     ${CMAKE_SOURCE_DIR}/server
     ${CMAKE_SOURCE_DIR}/common
 )
